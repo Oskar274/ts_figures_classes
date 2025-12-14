@@ -1,21 +1,20 @@
 export interface Figure {
   color: string;
   shape: string;
-  getarea(): number;
+  getArea(): number;
 }
 
 export class Triangle implements Figure {
-  a: number;
-
-  b: number;
-
-  c: number;
-
   color: string;
 
   public shape: string;
 
-  constructor(color: string, a: number, b: number, c: number) {
+  constructor(
+    color: string,
+    public a: number,
+    public b: number,
+    public c: number,
+  ) {
     if (a <= 0 || b <= 0 || c <= 0) {
       throw new Error('Triangle sides must be greater than 0');
     }
@@ -31,25 +30,24 @@ export class Triangle implements Figure {
     this.shape = 'triangle';
   }
 
-  public getarea(): number {
+  public getArea(): number {
     const s = (this.a + this.b + this.c) / 2;
 
-    return (
-      Math.round(
-        Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)) * 100,
-      ) / 100
+    return Math.floor(
+      Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)),
     );
   }
 }
 
 export class Circle implements Figure {
-  radius: number;
-
   color: string;
 
   public shape: string;
 
-  constructor(color: string, radius: number) {
+  constructor(
+    color: string,
+    public radius: number,
+  ) {
     if (radius <= 0) {
       throw new Error('Radius must be greater than 0');
     }
@@ -59,21 +57,21 @@ export class Circle implements Figure {
     this.shape = 'circle';
   }
 
-  public getarea(): number {
-    return Math.round(Math.PI * this.radius * this.radius * 100) / 100;
+  public getArea(): number {
+    return Math.floor(Math.PI * this.radius * this.radius);
   }
 }
 
 export class Rectangle implements Figure {
-  public width: number;
-
-  public height: number;
-
   color: string;
 
   shape: string;
 
-  constructor(color: string, width: number, height: number) {
+  constructor(
+    color: string,
+    public width: number,
+    public height: number,
+  ) {
     if (width <= 0 || height <= 0) {
       throw new Error('Width and height must be greater than 0');
     }
@@ -84,11 +82,11 @@ export class Rectangle implements Figure {
     this.shape = 'rectangle';
   }
 
-  public getarea(): number {
+  public getArea(): number {
     return this.width * this.height;
   }
 }
 
 export function getInfo(figure: Figure): string {
-  return `A ${figure.color} ${figure.shape} - ${figure.getarea()}`;
+  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
