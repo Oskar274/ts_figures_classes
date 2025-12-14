@@ -22,10 +22,6 @@ export class Triangle implements Figure {
     if (a + b <= c || a + c <= b || b + c <= a) {
       throw new Error('Invalid triangle: longest side is too long');
     }
-
-    this.a = a;
-    this.b = b;
-    this.c = c;
     this.color = color;
     this.shape = 'triangle';
   }
@@ -33,8 +29,10 @@ export class Triangle implements Figure {
   public getArea(): number {
     const s = (this.a + this.b + this.c) / 2;
 
-    return Math.floor(
-      Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)),
+    return (
+      Math.floor(
+        Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)) * 100,
+      ) / 100
     );
   }
 }
@@ -51,14 +49,12 @@ export class Circle implements Figure {
     if (radius <= 0) {
       throw new Error('Radius must be greater than 0');
     }
-
-    this.radius = radius;
     this.color = color;
     this.shape = 'circle';
   }
 
   public getArea(): number {
-    return Math.floor(Math.PI * this.radius * this.radius);
+    return Math.floor(Math.PI * this.radius * this.radius * 100) / 100;
   }
 }
 
@@ -75,15 +71,12 @@ export class Rectangle implements Figure {
     if (width <= 0 || height <= 0) {
       throw new Error('Width and height must be greater than 0');
     }
-
-    this.width = width;
-    this.height = height;
     this.color = color;
     this.shape = 'rectangle';
   }
 
   public getArea(): number {
-    return this.width * this.height;
+    return Math.floor(this.width * this.height * 100) / 100;
   }
 }
 
